@@ -3,8 +3,8 @@ import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
-  const url = new URL(req.url);
-  const cookieStore = cookies(); // Remove `await` since `cookies()` is synchronous
+  // const url = new URL(req.url);
+  const cookieStore = cookies();
 
   const formData = await req.formData();
   const email = String(formData.get("email"));
@@ -26,7 +26,7 @@ export async function POST(req: NextRequest) {
     email,
     password,
     options: {
-      emailRedirectTo: `${url.origin}/dashboard`,
+      emailRedirectTo: `${process.env.NEXT_PUBLIC_SITE_URL}/dashboard`,
     },
   });
 
